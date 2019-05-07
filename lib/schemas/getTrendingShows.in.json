@@ -1,0 +1,13 @@
+{
+    "type": "object",
+    "properties": {
+        "limit": {
+            "required": false,
+            "type": "string"
+        },
+        "timeWindow": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "type": "object",
+    "properties": {
+        "tweet": {
+            "required": false,
+            "type": "string"
+        },
+        "hashtags": {
+            "required": false,
+            "type": "string"
+        },
+        "showID": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

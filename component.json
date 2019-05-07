@@ -1,0 +1,117 @@
+{
+    "title": "Peel Tune-in API",
+    "description": "The machine learning service APIs utilize hashtags from Twitter to find related, trending shows, related Twitter hashtags in real time and to generate direct tune-in URLs.",
+    "docsUrl": "",
+    "url": "https://api.apis.guru/v2/specs/peel-ci.com/1.0.0/swagger.json",
+    "envVars": {},
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "http://hashtag.peel-ci.com/",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            }
+        }
+    },
+    "triggers": {
+        "startFlow": {
+            "main": "./lib/triggers/startFlow.js",
+            "type": "polling",
+            "title": "Start Flow",
+            "fields": {}
+        }
+    },
+    "actions": {
+        "getRelatedHashtags": {
+            "main": "./lib/actions/getRelatedHashtags.js",
+            "title": "Gets related hashtags for a show.",
+            "description": "Returns any official hashtag and any hashtags which were learned within the most recent time window for the show.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getRelatedHashtags.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getTrendingShows": {
+            "main": "./lib/actions/getTrendingShows.js",
+            "title": "Gets trending shows.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getTrendingShows.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getTuneinLinks": {
+            "main": "./lib/actions/getTuneinLinks.js",
+            "title": "Gets tunein URLs (links) from either a tweet, hashtags, @mentions, or show ID.",
+            "description": "Either use <b>tweet</b>, <b>hashtags</b>, or <b>showID</b> as the parameter. The tunein URLs that match best are returned in order of best match.<br/><br/>A <b>tweet</b> in this context is shorthand for text from a social networking conversation, e.g., it could be from Facebook, Twitter, LinkedIn, etc., and be greater than 140 characters.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getTuneinLinks.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getHealth": {
+            "main": "./lib/actions/getHealth.js",
+            "title": "Get health of Tune-in service (which includes its uptime).",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getHealth.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getStatuses": {
+            "main": "./lib/actions/getStatuses.js",
+            "title": "Gets the last 100 statuses for this show.",
+            "description": "For Twitter, statuses are synonymous with tweets.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getStatuses.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}
